@@ -9,7 +9,12 @@
 </head>
 <body>
   <h1>Memory game</h1>
-  <div id="game-board"></div>
+  <form data-id="number-of-pairs-form">
+    <label for="number-of-pairs">How many card pairs would you like to play?</label>
+    <input id="number-of-pairs" data-id="number-of-pairs" type=text />
+    <button type="submit">Go</button>
+  </form>
+  <div id="game-board" data-id="game-board"></div>
   <button type="reset">Reset</button>
   <script src="scripts/main.js"></script>
 </body>

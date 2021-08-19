@@ -1,10 +1,14 @@
 function init () {
 
+  const board = document.querySelector('[data-id="game-board"]');
+  const numberOfPairsInput = document.querySelector('[data-id="number-of-pairs"]')
+  const numberOfPairsForm = document.querySelector('[data-id="number-of-pairs-form"]')
+  
   const cards = [];
 
   function generateCardValues (numberOfCards = 8) {
     for (let i = 0; i < numberOfCards; i += 2) {
-      let randomNumber = Math.round(Math.random() * 50);
+      let randomNumber = Math.round(Math.random() * 100);
       cards.push(randomNumber);
       cards.push(randomNumber);
     }
@@ -18,11 +22,10 @@ function init () {
     return array;
   }
   
-  function generateBoard () {
-    generateCardValues();
+  function generateBoard (numberOfPairs) {
+    generateCardValues(numberOfPairs * 2);
 
     const shuffledCards = shuffle(cards);
-    const board = document.querySelector('#game-board');
     
     shuffledCards.forEach(cardValue => {
       const cardElement = document.createElement('div');
@@ -31,7 +34,19 @@ function init () {
     });
   }
 
-  generateBoard();
+  function validateInput (e) {
+    // TODO: Add keystroke validation so only numbers allowed
+    // TODO: Set max and min number of pairs
+    console.log(e.target.value)
+  }
+
+  function determineNumberOfPairs (e) {
+    e.preventDefault();
+    generateBoard(numberOfPairsInput.value);
+  }
+
+  numberOfPairsInput.addEventListener('input', validateInput)
+  numberOfPairsForm.addEventListener('submit', determineNumberOfPairs)
 }
 
 window.addEventListener('DOMContentLoaded', init)
