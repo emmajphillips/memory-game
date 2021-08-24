@@ -3,10 +3,11 @@ function init () {
   const board = document.querySelector('[data-id="game-board"]');
   const numberOfPairsInput = document.querySelector('[data-id="number-of-pairs"]')
   const numberOfPairsForm = document.querySelector('[data-id="number-of-pairs-form"]')
+  const errorDisplay = document.querySelector('[data-id="error-display"]')
   
-  const cards = [];
+  let cards = [];
 
-  function generateCardValues (numberOfCards = 8) {
+  function generateCardValues (numberOfCards) {
     for (let i = 0; i < numberOfCards; i += 2) {
       let randomNumber = Math.round(Math.random() * 100);
       cards.push(randomNumber);
@@ -35,9 +36,22 @@ function init () {
   }
 
   function validateInput (e) {
-    // TODO: Add keystroke validation so only numbers allowed
-    // TODO: Set max and min number of pairs
-    console.log(e.target.value)
+    errorDisplay.textContent = '';
+    let number = +e.target.value;
+
+    try {
+      if (number === 0) {
+        throw new Error('input a value greater than zero')
+      }
+      if (!number) {
+        throw new Error('use number')
+      }
+      if (number > 50) {
+        throw new Error('maximum amount exceeded')
+      }
+    } catch (error) {
+      errorDisplay.textContent = error.message;
+    }
   }
 
   function determineNumberOfPairs (e) {
