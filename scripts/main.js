@@ -8,6 +8,7 @@ function init () {
   let cards = [];
 
   function generateCardValues (numberOfCards) {
+    cards.length = 0
     for (let i = 0; i < numberOfCards; i += 2) {
       let randomNumber = Math.round(Math.random() * 100);
       cards.push(randomNumber);
@@ -24,6 +25,7 @@ function init () {
   }
   
   function generateBoard (numberOfPairs) {
+    board.replaceChildren();
     generateCardValues(numberOfPairs * 2);
 
     const shuffledCards = shuffle(cards);
